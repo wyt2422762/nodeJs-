@@ -29,6 +29,7 @@ function readFileAsync(request, response) {
             response.writeHead(500, {"Content-Type": "text/plain;charset=utf-8"});
             response.write("读取文件发生错误");
             response.end();
+            return;
         }
         response.writeHead(200, {"Content-Type": "text/plain;charset=utf-8"});
         response.write(data);
@@ -40,9 +41,10 @@ function readFileAsync(request, response) {
 //异步写入文件
 function writeFileAsync(request, response) {
 
-    fs.writeFile("fileTest.txt", "我是通过写入的文件内容！", function (error) {
+    fs.writeFile("./fileTest.txt", "我是通过写入的文件内容！", function (error) {
         if (error) {
             console.log("写入文件失败");
+            return;
         }
         response.writeHead(200, {"Content-Type": "text/plain;charset=utf-8"});
         response.write("写入文件成功");
