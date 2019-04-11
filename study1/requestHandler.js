@@ -1,4 +1,5 @@
 var fs = require("fs");
+var path = require("path");
 
 function index(request, response) {
     console.log("handler1");
@@ -6,7 +7,6 @@ function index(request, response) {
     response.write("index");
     response.end();
 }
-
 
 function handler1(request, response) {
     console.log("handler1");
@@ -24,7 +24,7 @@ function handler2(request, response) {
 
 // 异步读取文件
 function readFileAsync(request, response) {
-    fs.readFile('fileTest.txt', function (err, data) {
+    fs.readFile(path.resolve(__dirname, "./fileTest.txt"), function (err, data) {
         if (err) {
             response.writeHead(500, {"Content-Type": "text/plain;charset=utf-8"});
             response.write("读取文件发生错误");
@@ -40,8 +40,7 @@ function readFileAsync(request, response) {
 
 //异步写入文件
 function writeFileAsync(request, response) {
-
-    fs.writeFile("./fileTest.txt", "我是通过写入的文件内容！", function (error) {
+    fs.writeFile(path.resolve(__dirname, "./fileTest.txt"), "我是通过写入的文件内容！", function (error) {
         if (error) {
             console.log("写入文件失败");
             return;
